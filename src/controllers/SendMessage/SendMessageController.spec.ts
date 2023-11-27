@@ -4,7 +4,7 @@ import { app } from '../../app';
 import { MongoClient } from '../../database/mongoClient';
 import { User } from '../../models/User';
 
-describe('Create User Controller', () => {
+describe('Send Message Controller', () => {
   beforeEach(async () => {
     await MongoClient.connect();
     await MongoClient.client
@@ -107,8 +107,8 @@ describe('Create User Controller', () => {
   });
 });
 
-describe('', () => {
-  it('Should send a message and receive a response from the chat service', async () => {
+describe('route root "/"', () => {
+  it('Should make a request for the route /', async () => {
     const response = await request(app).get('/').send();
 
     expect(response.text).toBe('Bem vindo a Tira Duvida ChatGPT Kenlo!');
