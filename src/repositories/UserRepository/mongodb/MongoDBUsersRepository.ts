@@ -22,7 +22,7 @@ class MongoDBUsersRepository implements IUsersRepository {
     id
   }: User): Promise<User> {
     const { insertedId } = await MongoClient.db
-      .collection<User>('users')
+      .collection<Partial<User>>('users')
       .insertOne({
         id,
         fullName,
@@ -56,9 +56,13 @@ class MongoDBUsersRepository implements IUsersRepository {
   }
 
   async update(user: User): Promise<boolean> {
+    const interactions = user.interactions;
     const userMongo = await MongoClient.db
       .collection<User>('users')
-      .updateOne({ email: user.email }, { $set: user });
+      .updateOne(
+        { email: user.email },
+        { $set: { interactions: interactions } }
+      );
 
     return !!userMongo.upsertedId;
   }
