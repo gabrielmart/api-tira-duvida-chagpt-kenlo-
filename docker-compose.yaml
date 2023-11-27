@@ -24,7 +24,14 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     ports:
-      - 3000:3000
+      - 3001:3001
+    environment:
+      MONGODB_DATABASE_NAME: api-cadastra-cliente-kenlo
+      MONGODB_URL: mongodb://db:27017
+      MONGODB_USERNAME: admin
+      MONGODB_PASSWORD: 123456
+      PORT: 3001
+      OPENAI_API_KEY: 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
     links:
       - db
     depends_on: 
