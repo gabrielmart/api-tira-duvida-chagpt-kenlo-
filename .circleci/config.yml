@@ -15,9 +15,9 @@ jobs:
       - run:
           command: npm run test
           name: Run unit tests
-      # - run:
-      #     command: npm run build
-      #     name: Build server
+      - run:
+          command: npm run build
+          name: Build server
       # - run:
       #     command: npm run start
       #     name: Start server
