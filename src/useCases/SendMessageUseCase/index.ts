@@ -4,6 +4,7 @@ import { Message } from '../../models/IMessage';
 import { MessageUser } from '../../models/MessageUser';
 import { IUsersRepository } from '../../repositories/UserRepository/IUsersRepository';
 import { IChatService } from '../../services/ChatService/IChatService';
+import { User } from '../../models/User';
 
 class SendMessageUseCase {
   constructor(
@@ -19,7 +20,7 @@ class SendMessageUseCase {
         'O Usuário informado não existe, por isso não será possível enviar sua mensagem!'
       );
 
-    const user = await this.usersRepository.find(sender);
+    const userMongo = await this.usersRepository.find(sender);
 
     const messageUser = MessageUser.create(content, sender);
 
@@ -30,9 +31,17 @@ class SendMessageUseCase {
 
     const interaction = Interaction.create(messageUser, messageAssistant!);
 
-    user!.interactions = interaction;
+    const user = User.create(
+      userMongo!.fullName,
+      userMongo!.email,
+      userMongo!.phone,
+      userMongo!.interactions,
+      userMongo!.id
+    );
 
-    await this.usersRepository.update(user!);
+    user.interactions = interaction;
+
+    await this.usersRepository.update(user);
 
     return interaction.messageAssistant;
   }

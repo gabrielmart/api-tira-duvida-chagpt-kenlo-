@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "",
+      "url": "https://api-tira-duvida-chatgpt-kenlo.onrender.com",
       "description": "API de produção"
     },
     {
