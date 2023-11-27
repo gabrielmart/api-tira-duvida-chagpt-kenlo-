@@ -1,0 +1,110 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Swagger API Tira Duvida ChatGPT Kenlo",
+    "description": "API responsável por enviar uma mensagem do usuário ao ChatGPT e retornar uma resposta ",
+    "contact": {
+      "email": "gabrielmartinsdesouzaa@hotmail.com"
+    },
+    "version": "1.0.11"
+  },
+  "servers": [
+    {
+      "url": "",
+      "description": "API de produção"
+    },
+    {
+      "url": "http://localhost:3000",
+      "description": "API de desenvolvimento"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Saudação da API",
+        "description": "Rota responsável enviar uma saudação como resposta",
+        "tags": [
+          "Saudação"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/ask-gpt": {
+      "post": {
+        "summary": "Envia messagem para ChatGPT",
+        "description": "Rota responsável por enviar uma mensagem e receber uma resposta  do ChatGPT",
+        "tags": [
+          "Ask"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MessageUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type":"object",
+                  "$ref":"#/components/schemas/MessageAssistant"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "MessageUser": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Poderia me tirar uma duvida?"
+          },
+          "email": {
+            "type": "string",
+            "example": "carlos@hotmail.com"
+          }
+        }
+      },
+      "MessageAssistant": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Poderia me tirar uma duvida?"
+          },
+          "email": {
+            "type": "string",
+            "example": "carlos@hotmail.com"
+          }
+        }
+      }
+    }
+  }
+}
